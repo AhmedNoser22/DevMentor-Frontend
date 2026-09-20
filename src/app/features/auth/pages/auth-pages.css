@@ -1,0 +1,49 @@
+.auth-card {
+  max-width: 380px;
+  margin: 60px auto;
+  padding: 32px;
+  border: 1px solid #dcecf3;
+  border-radius: 16px;
+  background: #ffffff;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.auth-card h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.auth-card label {
+  font-size: 13px;
+  color: #5b6b7a;
+}
+.auth-card input {
+  padding: 10px 12px;
+  border: 1px solid #c3dfeb;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.auth-card button {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #3f9bce;
+  color: #fff;
+  font-weight: 500;
+}
+.auth-card button:disabled {
+  opacity: 0.6;
+}
+.auth-card .error {
+  color: #b3432f;
+  font-size: 13px;
+}
+.auth-card .success {
+  color: #2a7aa8;
+  font-size: 13px;
+}
