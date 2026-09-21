@@ -13,6 +13,12 @@ export interface RegisterRequest {
   password: string;
 }
 
+export interface RegisterResult {
+  userId: string;
+  email: string;
+  message: string;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -26,4 +32,13 @@ export interface ResetPasswordRequest {
   email: string;
   token: string;
   newPassword: string;
+}
+
+export interface ConfirmEmailRequest {
+  email: string;
+  token: string;
+}
+
+export interface ResendConfirmationRequest {
+  email: string;
 }

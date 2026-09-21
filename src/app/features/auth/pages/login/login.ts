@@ -22,11 +22,12 @@ import { AuthService } from '../../../../core/auth/auth.service';
       </form>
       <p><a routerLink="/auth/forgot-password">Forgot your password?</a></p>
       <p>Don't have an account? <a routerLink="/auth/register">Register</a></p>
+      <p><a routerLink="/">Back to home</a></p>
     </div>
   `,
   styleUrl: '../auth-pages.css'
 })
-export class Login {
+export class LoginPage {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -48,10 +49,14 @@ export class Login {
     this.authService.login(this.form.getRawValue()).subscribe({
       next: (response) => {
         this.authService.storeSession(response);
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/app/dashboard');
       },
-      error: () => {
-        this.errorMessage.set('Invalid email or password');
+      error: (err) => {
+        this.errorMessage.set(
+          err?.status === 401 && err?.error?.title
+            ? err.error.title
+            : 'Invalid email or password'
+        );
         this.loading.set(false);
       }
     });

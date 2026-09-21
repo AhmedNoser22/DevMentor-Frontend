@@ -28,8 +28,8 @@ import { DatePipe } from '@angular/common';
             }
           </div>
           <div style="display:flex; gap:10px;">
-            <a class="btn primary" routerLink="/exams">Start an exam</a>
-            <a class="btn" routerLink="/interview">Start an interview</a>
+            <a class="btn primary" routerLink="/app/exams">Start an exam</a>
+            <a class="btn" routerLink="/app/interview">Start an interview</a>
           </div>
         </div>
 
@@ -45,10 +45,10 @@ import { DatePipe } from '@angular/common';
         <div class="panel domain-row">
           <div class="lbl">Start something new</div>
           <div class="chips-wrap">
-            <a class="chip clickable" routerLink="/exams">.NET</a>
-            <a class="chip clickable" routerLink="/exams">Angular</a>
-            <a class="chip clickable" routerLink="/exams">SQL</a>
-            <a class="chip clickable" routerLink="/exams">System Design</a>
+            <a class="chip clickable" routerLink="/app/exams">.NET</a>
+            <a class="chip clickable" routerLink="/app/exams">Angular</a>
+            <a class="chip clickable" routerLink="/app/exams">SQL</a>
+            <a class="chip clickable" routerLink="/app/exams">System Design</a>
           </div>
         </div>
       </div>

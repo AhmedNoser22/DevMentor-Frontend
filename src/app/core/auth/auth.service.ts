@@ -4,9 +4,12 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import {
   AuthResponse,
+  ConfirmEmailRequest,
   ForgotPasswordRequest,
   LoginRequest,
   RegisterRequest,
+  RegisterResult,
+  ResendConfirmationRequest,
   ResetPasswordRequest
 } from '../models/auth.models';
 
@@ -26,7 +29,15 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this.currentUserSignal() !== null);
 
   register(request: RegisterRequest) {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/register`, request);
+    return this.http.post<RegisterResult>(`${environment.apiUrl}/auth/register`, request);
+  }
+
+  confirmEmail(request: ConfirmEmailRequest) {
+    return this.http.post<void>(`${environment.apiUrl}/auth/confirm-email`, request);
+  }
+
+  resendConfirmation(request: ResendConfirmationRequest) {
+    return this.http.post<void>(`${environment.apiUrl}/auth/resend-confirmation`, request);
   }
 
   login(request: LoginRequest) {

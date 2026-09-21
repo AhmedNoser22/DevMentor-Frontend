@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ExamResult } from '../../data-access/exams.models';
 
 @Component({
@@ -16,19 +16,18 @@ import { ExamResult } from '../../data-access/exams.models';
         </p>
         @if (data.certificateIssued) {
           <p style="margin-top:16px; font-size:13.5px;">A certificate has been issued for this domain and level.</p>
-          <button class="btn gold" style="margin-top:14px;" routerLink="/certificates">View certificates</button>
+          <button class="btn gold" style="margin-top:14px;" routerLink="/app/certificates">View certificates</button>
         } @else {
-          <button class="btn" style="margin-top:18px;" routerLink="/exams">Try another exam</button>
+          <button class="btn" style="margin-top:18px;" routerLink="/app/exams">Try another exam</button>
         }
       </div>
     } @else {
-      <p>No result to show. <a routerLink="/exams">Start a new exam</a>.</p>
+      <p>No result to show. <a routerLink="/app/exams">Start a new exam</a>.</p>
     }
   `
 })
 export class ExamResultPage {
   private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
 
   readonly result = signal<ExamResult | null>(
     (this.router.getCurrentNavigation()?.extras.state?.['result'] as ExamResult) ??

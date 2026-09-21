@@ -108,7 +108,7 @@ export class TakeExamPage implements OnInit, OnDestroy {
     }
     this.submitting.set(true);
     this.examsService.submit(attempt.attemptId).subscribe((result) => {
-      this.router.navigate(['/exams', attempt.attemptId, 'result'], { state: { result } });
+      this.router.navigate(['/app/exams', attempt.attemptId, 'result'], { state: { result } });
     });
   }
 

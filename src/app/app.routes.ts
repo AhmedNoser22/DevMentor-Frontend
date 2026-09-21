@@ -3,6 +3,10 @@ import { authGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadComponent: () => import('./features/home/pages/homepage/homepage').then((m) => m.HomePage)
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.routes').then((m) => m.authRoutes)
   },
@@ -11,7 +15,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/certificates/pages/verify/verify').then((m) => m.VerifyPage)
   },
   {
-    path: '',
+    path: 'app',
     loadComponent: () => import('./layout/shell/shell/shell').then((m) => m.ShellComponent),
     canActivate: [authGuard],
     children: [
@@ -40,5 +44,5 @@ export const routes: Routes = [
       }
     ]
   },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: '' }
 ];

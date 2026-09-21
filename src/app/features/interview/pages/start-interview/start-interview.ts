@@ -47,7 +47,7 @@ export class StartInterviewPage {
     this.loading.set(true);
     this.errorMessage.set(null);
     this.interviewService.start({ domain: this.selectedDomain() }).subscribe({
-      next: (session) => this.router.navigate(['/interview', session.sessionId]),
+      next: (session) => this.router.navigate(['/app/interview', session.sessionId]),
       error: () => {
         this.loading.set(false);
         this.errorMessage.set('You have reached today\'s interview limit — please try again tomorrow.');

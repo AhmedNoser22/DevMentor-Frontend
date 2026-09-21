@@ -15,7 +15,7 @@ import { Certificate } from '../../data-access/certificates.models';
     @if (certificates().length) {
       <div class="panel" style="padding:20px 22px; max-width:560px;">
         @for (cert of certificates(); track cert.id) {
-          <a class="cert-badge" [routerLink]="['/certificates', cert.id]">
+          <a class="cert-badge" [routerLink]="['/app/certificates', cert.id]">
             <span class="left">
               <span class="dot"></span>
               {{ domainLabel(cert.domain) }} — {{ cert.level }}

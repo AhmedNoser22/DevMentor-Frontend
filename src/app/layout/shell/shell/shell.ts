@@ -11,11 +11,11 @@ import { AuthService } from '../../../core/auth/auth.service';
       <aside class="rail">
         <div class="mark">DM</div>
         <nav>
-          <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-          <a routerLink="/interview" routerLinkActive="active">AI Interview</a>
-          <a routerLink="/exams" routerLinkActive="active">Exams</a>
-          <a routerLink="/certificates" routerLinkActive="active">Certificates</a>
-          <a routerLink="/profile" routerLinkActive="active">Profile</a>
+          <a routerLink="/app/dashboard" routerLinkActive="active">Dashboard</a>
+          <a routerLink="/app/interview" routerLinkActive="active">AI Interview</a>
+          <a routerLink="/app/exams" routerLinkActive="active">Exams</a>
+          <a routerLink="/app/certificates" routerLinkActive="active">Certificates</a>
+          <a routerLink="/app/profile" routerLinkActive="active">Profile</a>
         </nav>
         <button class="logout" (click)="authService.logout()">Log out</button>
       </aside>

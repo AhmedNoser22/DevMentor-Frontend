@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ExamsService } from '../../data-access/exams';
 import { Level, TechDomain } from '../../data-access/exams.models';
 
-
 @Component({
   selector: 'app-start-exam-page',
   standalone: true,
@@ -62,7 +61,7 @@ export class StartExamPage {
     this.loading.set(true);
     this.errorMessage.set(null);
     this.examsService.start({ domain: this.selectedDomain(), level: this.selectedLevel() }).subscribe({
-      next: (attempt) => this.router.navigate(['/exams', attempt.attemptId]),
+      next: (attempt) => this.router.navigate(['/app/exams', attempt.attemptId]),
       error: () => {
         this.loading.set(false);
         this.errorMessage.set('Not enough approved questions are available for this domain and level yet.');

@@ -1,8 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProfileService } from '../../data-access/profile';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { CertificateSummary, ProfileDto } from '../../../dashboard/data-access/dashboard.models';
+import { ProfileService } from '../../data-access/profile';
 
 @Component({
   selector: 'app-profile-page',
@@ -50,7 +49,7 @@ import { CertificateSummary, ProfileDto } from '../../../dashboard/data-access/d
           <h3>Certificates</h3>
           @if (data.certificates.length) {
             @for (cert of data.certificates; track cert.certificateCode) {
-              <a class="cert-badge" routerLink="/certificates">
+              <a class="cert-badge" routerLink="/app/certificates">
                 <span class="left">
                   <span class="dot"></span>
                   {{ domainLabel(cert) }}
@@ -68,7 +67,6 @@ import { CertificateSummary, ProfileDto } from '../../../dashboard/data-access/d
 })
 export class ProfilePage implements OnInit {
   private readonly profileService = inject(ProfileService);
-  private readonly authService = inject(AuthService);
   readonly profile = signal<ProfileDto | null>(null);
 
   ngOnInit() {
