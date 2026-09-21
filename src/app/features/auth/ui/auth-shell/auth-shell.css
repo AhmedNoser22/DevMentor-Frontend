@@ -1,0 +1,63 @@
+.auth-page{ display:flex; min-height:100vh; }
+
+.auth-visual{
+  flex:1 1 46%;
+  max-width:560px;
+  background:linear-gradient(165deg, var(--accent-wash) 0%, var(--bg) 70%);
+  border-right:1px solid var(--border);
+  padding:36px 44px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.auth-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); }
+.auth-brand .mark{
+  width:36px; height:36px; border-radius:10px; background:var(--surface);
+  border:1px solid var(--border-strong); color:var(--accent-deep);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-serif); font-weight:600;
+}
+.auth-brand .wordmark{ font-family:var(--font-serif); font-size:17px; }
+
+.auth-visual-body{ margin-top:40px; max-width:420px; }
+.kicker{ color:var(--accent-deep); font-size:12px; margin:0 0 16px; }
+.auth-visual-body h1{ font-size:32px; line-height:1.25; margin:0 0 14px; font-family:var(--font-serif); font-weight:500; }
+.auth-visual-body .sub{ color:var(--ink-soft); font-size:14.5px; line-height:1.6; margin:0 0 32px; }
+
+.feature-list{ display:flex; flex-direction:column; gap:20px; }
+.feature{ display:flex; gap:14px; align-items:flex-start; }
+.feature-icn{
+  width:34px; height:34px; border-radius:9px; background:var(--surface);
+  border:1px solid var(--border-strong); color:var(--accent-deep);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.feature-icn svg{ width:16px; height:16px; }
+.feature h3{ font-size:14.5px; margin:0 0 4px; font-family:var(--font-sans); font-weight:600; }
+.feature p{ font-size:13px; color:var(--ink-soft); margin:0; line-height:1.5; max-width:32ch; }
+
+.auth-visual-card{
+  display:flex; align-items:center; gap:14px;
+  background:var(--surface); border:1px solid var(--border-strong); border-radius:var(--radius-l);
+  padding:16px 18px; margin-top:30px;
+}
+.score-ring-mini{
+  width:44px; height:44px; border-radius:50%; border:4px solid var(--accent-wash-strong);
+  border-top-color:var(--accent); display:flex; align-items:center; justify-content:center;
+  font-size:13px; flex-shrink:0;
+}
+.mini-title{ font-size:13px; margin:0 0 3px; }
+.mini-sub{ font-size:11px; color:var(--gold-deep); margin:0; }
+
+.auth-form-panel{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 24px;
+}
+.auth-card{ width:100%; max-width:400px; }
+
+@media (max-width: 900px){
+  .auth-visual{ display:none; }
+}

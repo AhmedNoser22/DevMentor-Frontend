@@ -1,15 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AuthShell } from '../../ui/auth-shell/auth-shell';
 import { AuthService } from '../../../../core/auth/auth.service';
-
 
 @Component({
   selector: 'app-reset-password-page',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, AuthShell],
   template: `
-    <div class="auth-card">
+    <app-auth-shell heading="Almost there." subheading="Set a new password to get back into your account.">
       <h1>Set a new password</h1>
       <form [formGroup]="form" (ngSubmit)="submit()">
         <label>Email</label>
@@ -26,12 +26,13 @@ import { AuthService } from '../../../../core/auth/auth.service';
         }
         <button type="submit" [disabled]="form.invalid || loading()">Update password</button>
       </form>
-      <p><a routerLink="/auth/login">Back to login</a></p>
-    </div>
-  `,
-  styleUrl: '../auth-pages.css'
+      <div class="links">
+        <a routerLink="/auth/login">Back to login</a>
+      </div>
+    </app-auth-shell>
+  `
 })
-export class ResetPassword {
+export class ResetPasswordPage {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
