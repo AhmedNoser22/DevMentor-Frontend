@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ExamsService } from '../../data-access/exams';
 import { Level, TechDomain } from '../../data-access/exams.models';
+import { ExamsService } from '../../data-access/exams';
 
 @Component({
   selector: 'app-start-exam-page',
@@ -62,9 +62,17 @@ export class StartExamPage {
     this.errorMessage.set(null);
     this.examsService.start({ domain: this.selectedDomain(), level: this.selectedLevel() }).subscribe({
       next: (attempt) => this.router.navigate(['/app/exams', attempt.attemptId]),
-      error: () => {
+      error: (err) => {
         this.loading.set(false);
-        this.errorMessage.set('Not enough approved questions are available for this domain and level yet.');
+        if (err?.status === 0) {
+          this.errorMessage.set('Could not reach the server — check your connection and that the API is running.');
+        } else if (err?.status === 409 && err?.error?.title) {
+          this.errorMessage.set(err.error.title);
+        } else if (err?.status === 401) {
+          this.errorMessage.set('Your session has expired — please log in again.');
+        } else {
+          this.errorMessage.set('Something went wrong starting the exam. Please try again.');
+        }
       }
     });
   }

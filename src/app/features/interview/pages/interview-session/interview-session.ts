@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { InterviewService } from '../../data-access/interview';
 import { InterviewSession } from '../../data-access/interview.models';
 
-
 @Component({
   selector: 'app-interview-session-page',
   standalone: true,
@@ -27,7 +26,15 @@ import { InterviewSession } from '../../data-access/interview.models';
                 </div>
               }
             }
+            @if (sending()) {
+              <div class="turn-a" style="opacity:.6;">
+                <div class="who">Mentor is reviewing your answer…</div>
+              </div>
+            }
           </div>
+          @if (errorMessage()) {
+            <p style="color:var(--danger); font-size:13px; padding:0 26px;">{{ errorMessage() }}</p>
+          }
           @if (!data.ended) {
             <div class="composer">
               <input
@@ -37,7 +44,9 @@ import { InterviewSession } from '../../data-access/interview.models';
                 [(ngModel)]="draftAnswer"
                 [disabled]="sending()"
                 (keyup.enter)="send()">
-              <button class="btn primary" [disabled]="sending() || !draftAnswer.trim()" (click)="send()">Send</button>
+              <button class="btn primary" [disabled]="sending() || !draftAnswer.trim()" (click)="send()">
+                {{ sending() ? 'Sending…' : 'Send' }}
+              </button>
             </div>
           }
         </div>
@@ -69,6 +78,10 @@ import { InterviewSession } from '../../data-access/interview.models';
           <p class="mono" style="margin-top:10px; font-size:22px;">{{ data.finalScore }}</p>
         </div>
       }
+    } @else if (loadError()) {
+      <p style="color:var(--danger);">Could not load this interview session.</p>
+    } @else {
+      <p style="color:var(--ink-soft);">Loading…</p>
     }
   `
 })
@@ -78,11 +91,16 @@ export class InterviewSessionPage implements OnInit {
 
   readonly session = signal<InterviewSession | null>(null);
   readonly sending = signal(false);
+  readonly loadError = signal(false);
+  readonly errorMessage = signal<string | null>(null);
   draftAnswer = '';
 
   ngOnInit() {
     const sessionId = this.route.snapshot.paramMap.get('id')!;
-    this.interviewService.get(sessionId).subscribe((data) => this.session.set(data));
+    this.interviewService.get(sessionId).subscribe({
+      next: (data) => this.session.set(data),
+      error: () => this.loadError.set(true)
+    });
   }
 
   domainLabel(domain: string) {
@@ -110,12 +128,27 @@ export class InterviewSessionPage implements OnInit {
     }
 
     this.sending.set(true);
+    this.errorMessage.set(null);
+    const answerText = this.draftAnswer.trim();
+
     this.interviewService
-      .answer({ sessionId: data.sessionId, turnId: turn.turnId, answer: this.draftAnswer.trim() })
-      .subscribe((updated) => {
-        this.session.set(updated);
-        this.draftAnswer = '';
-        this.sending.set(false);
+      .answer({ sessionId: data.sessionId, turnId: turn.turnId, answer: answerText })
+      .subscribe({
+        next: (updated) => {
+          this.session.set(updated);
+          this.draftAnswer = '';
+          this.sending.set(false);
+        },
+        error: (err) => {
+          this.sending.set(false);
+          if (err?.status === 0) {
+            this.errorMessage.set('Could not reach the server — please try again.');
+          } else if (err?.status === 401) {
+            this.errorMessage.set('Your session has expired — please log in again.');
+          } else {
+            this.errorMessage.set('Something went wrong grading that answer — please try again.');
+          }
+        }
       });
   }
 }

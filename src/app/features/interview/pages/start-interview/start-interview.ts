@@ -48,9 +48,17 @@ export class StartInterviewPage {
     this.errorMessage.set(null);
     this.interviewService.start({ domain: this.selectedDomain() }).subscribe({
       next: (session) => this.router.navigate(['/app/interview', session.sessionId]),
-      error: () => {
+      error: (err) => {
         this.loading.set(false);
-        this.errorMessage.set('You have reached today\'s interview limit — please try again tomorrow.');
+        if (err?.status === 0) {
+          this.errorMessage.set('Could not reach the server — check your connection and that the API is running.');
+        } else if (err?.status === 409 && err?.error?.title) {
+          this.errorMessage.set(err.error.title);
+        } else if (err?.status === 401) {
+          this.errorMessage.set('Your session has expired — please log in again.');
+        } else {
+          this.errorMessage.set('Something went wrong starting the interview. Please try again.');
+        }
       }
     });
   }
